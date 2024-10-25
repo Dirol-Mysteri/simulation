@@ -11,6 +11,12 @@ public class Renderer {
         this.map = map;
     }
 
+    public static void clearConsole() {
+        System.out.print("\033[H\033[2J");
+//        System.out.print("\u000C");
+        System.out.flush();
+    }
+
     public void render() {
         for (int i = 0; i < this.map.getN(); i++) {
             for (int j = 0; j < this.map.getM(); j++) {

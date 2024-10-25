@@ -31,14 +31,30 @@ public class Simulation {
     }
 
     public void nextTurn() {
-
+        for (Action action : turnActions) {
+            action.execute();
+        }
     }
 
     public void startSimulation() {
         for (Action action : initActions) {
             action.execute();
         }
-        renderer.render();
+
+        int i = 0;
+        while (i != 100) {
+            Renderer.clearConsole();
+            renderer.render();
+            for (Action action : turnActions) {
+                action.execute();
+            }
+            i++;
+            try {
+                Thread.sleep(10000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
     public void pauseSimulation() {
