@@ -52,15 +52,9 @@ public class Simulation {
                 action.execute();
             }
             i++;
-//            try {
-//                Thread.sleep(1000);
-//            } catch (InterruptedException e) {
-//                throw new RuntimeException(e);
-//            }
         }
     }
 
     public void pauseSimulation() {
-
     }
 }

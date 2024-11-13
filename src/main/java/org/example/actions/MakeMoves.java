@@ -8,7 +8,6 @@ import org.example.entities.Entity;
 import org.example.enums.EntityType;
 import org.example.utils.Renderer;
 
-import java.util.HashMap;
 import java.util.HashSet;
 
 public class MakeMoves implements Action {
@@ -31,25 +30,10 @@ public class MakeMoves implements Action {
                     if (executed.contains(entity)) {
                         continue;
                     }
-                    ((Creature)entity).makeMove(this.gameMap);
+                    ((Creature) entity).makeMove(this.gameMap);
                     executed.add(entity);
                 }
             }
         }
-
-
-//        HashMap<Coordinates, Entity> entities = gameMap.getEntities();
-//        HashSet<Entity> executed = new HashSet<>();
-//        for (Entity entity: entities.values()) {
-//            if (entity.getEntityType() == EntityType.PREDATOR || entity.getEntityType() == EntityType.HERBIVORE) {
-//                if (executed.contains(entity)) {
-//                    continue;
-//                }
-//                ((Creature)entity).makeMove(this.gameMap);
-//                executed.add(entity);
-//            }
-//        }
     }
 }
-
-// ДУМАЮ НАДО ДОБАВИТЬ КАЖДЫЙ ВИД СУЩЕСТВ В ОТДЕЛЬНЫЕ HASHMAPS с той целью, чтобы по несколько раз не проходить по массиву.

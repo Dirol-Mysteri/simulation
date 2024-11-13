@@ -23,11 +23,14 @@ public abstract class Creature extends Entity {
     }
 
     void moveAlongPath(List<Coordinates> path, GameMap gameMap) {
-        // Перемещаемся по пути, но не больше, чем на значение скорости
-        int stepsToTarget = path.size() - 1; // -1, потому что мы уже стоим на стартовой позиции
+        // Move along the path, but no more than the speed value
+        if (path.isEmpty()) {
+            return;
+        }
+        int stepsToTarget = path.size() - 1; // -1, because we are already standing in the starting position
         HashMap<Coordinates, Entity> entities = gameMap.getEntities();
         if (stepsToTarget <= speed) {
-            // Target attack logic
+            // Logic for attacking the target
             Entity target = gameMap.getEntities().get(path.getLast());
             interactWithTarget(target, entities);
             return;
@@ -49,17 +52,11 @@ public abstract class Creature extends Entity {
 
     public void makeMove(GameMap gameMap) {
         List<Coordinates> path = FindPathWithBFS.findPath(gameMap.getEntities(), this, this.targetEntity);
-        if (path != null) {
-            this.moveAlongPath(path, gameMap);
-        }
+        this.moveAlongPath(path, gameMap);
     }
 
     public String getSprite() {
         return sprite;
-    }
-
-    public List<List<Coordinates>> getPreviousPathes() {
-        return previousPathes;
     }
 
     public abstract void interactWithTarget(Entity target, HashMap<Coordinates, Entity> entities);

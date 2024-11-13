@@ -5,7 +5,7 @@ import org.example.actions.SetDefaultPositions;
 
 public class Main {
     public static void main(String[] args) {
-        GameMap gameMap = new GameMap(10, 10);
+        GameMap gameMap = new GameMap(20, 20);
         Simulation simulation = new Simulation(gameMap);
 
         // Adding actions to the simulation

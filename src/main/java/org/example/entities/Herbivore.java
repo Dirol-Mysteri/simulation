@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Herbivore extends Creature {
-    private static final int DAMAGE = 2;
     private static final int SPEED = 1;
     private static final int HP = 10;
 
@@ -27,10 +26,11 @@ public class Herbivore extends Creature {
         }
     }
 
-    public void takeDamage(HashMap<Coordinates, Entity> entities, Entity predator) {
-        if (this.hp > DAMAGE) {
-            this.hp = this.hp - DAMAGE;
-            System.out.println("Herbivore damage message should be here");
+    public void takeDamage(HashMap<Coordinates, Entity> entities, Predator predator) {
+        int damage = predator.getDamage();
+        if (this.hp > damage) {
+            this.hp = this.hp - damage;
+            System.out.println("Herbivore was attacked!");
         } else {
             // If Herbivore dies, it's place takes Free Cell
             Coordinates tempPredatorCoordinates = new Coordinates(predator.getCoordinates().getN(), predator.getCoordinates().getM());

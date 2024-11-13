@@ -9,6 +9,8 @@ import java.util.List;
 
 public class Predator extends Creature {
 
+    private final int DAMAGE = 2;
+
     public Predator(int positionN, int positionM) {
         super(positionN, positionM, EntityType.PREDATOR);
         ArrayList<String> predatorSprites = new ArrayList<>(List.of("\uD83D\uDC0A", "\uD83E\uDD81", "\uD83D\uDC3A"));
@@ -23,5 +25,9 @@ public class Predator extends Creature {
             ((Herbivore) target).takeDamage(entities, this);
             // НАДО ПОДУМАТЬ, КАК ТУТ ПРАВИЛЬНО СДЕЛАТЬ CASTING
         }
+    }
+
+    public int getDamage() {
+        return DAMAGE;
     }
 }

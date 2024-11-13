@@ -44,12 +44,13 @@ public class FindPathWithBFS {
                 // If a neighbor cell isn't the target
                 if (neighborEntity.getEntityType() == EntityType.FREE_SPACE) {
                     queue.add(neighbor);
+                    visited.add(neighbor);
                     cameFrom.put(neighbor, current);
                 }
             }
         }
         // If no target is found
-        return null;
+        return new ArrayList<>();
     }
 
     // Reconstructing the Path
