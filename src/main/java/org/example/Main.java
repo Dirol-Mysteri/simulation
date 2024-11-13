@@ -11,9 +11,7 @@ public class Main {
         // Adding actions to the simulation
 
         simulation.addInitAction(new SetDefaultPositions(gameMap));
-//        simulation.addInitAction();
         simulation.addTurnAction(new MakeMoves(gameMap));
-//        simulation.addTurnAction();
         simulation.startSimulation();
     }
-    // Я думаю надо реализовать логику запоминания направления последнего пути, и как-то эту логику отыграть, чтобы не возвращаться в предыдущие клетки.
+}
