@@ -22,24 +22,12 @@ public class FindPathWithBFS {
         Coordinates start = caller.getCoordinates();
         queue.add(start);
 
-        List<List<Coordinates>> previousPathes = caller.getPreviousPathes();
-//        visited.add(start);
-
         while (!queue.isEmpty()) {
             Coordinates current = queue.poll();
             visited.add(current);
             // Checking all directions
             for (int[] direction : DIRECTIONS) {
                 Coordinates neighbor = new Coordinates(current.getN() + direction[0], current.getM() + direction[1]);
-
-                if (!previousPathes.isEmpty()) {
-                    Coordinates lastPosition = previousPathes.getFirst().getFirst();
-                    if (lastPosition.equals(neighbor)) {
-                        visited.add(lastPosition);
-                        continue;
-                    }
-                }
-
 
                 if (visited.contains(neighbor) || !map.containsKey(neighbor)) {
                     continue;
@@ -50,22 +38,12 @@ public class FindPathWithBFS {
                 // If the target is found
                 if (neighborEntity.isType(targetType)) {
                     cameFrom.put(neighbor, current);
-
-//                    return reconstructPath(cameFrom, start, neighbor);
-                    List<Coordinates> findedPath = reconstructPath(cameFrom, start, neighbor);
-                    if (previousPathes.contains(findedPath)) {
-                        continue;
-                    }
-                    previousPathes.addFirst(findedPath);
-                    if (previousPathes.size() > 3) {
-                        previousPathes.removeLast();
-                    }
-                    return findedPath;
+                    return reconstructPath(cameFrom, start, neighbor);
                 }
+
                 // If a neighbor cell isn't the target
                 if (neighborEntity.getEntityType() == EntityType.FREE_SPACE) {
                     queue.add(neighbor);
-//                    visited.add(neighbor); // Какого хера я помечаю это поле как visited, если это просто соседняя клетка FreeSpace, которую я ещё не посетил до этого?
                     cameFrom.put(neighbor, current);
                 }
             }
