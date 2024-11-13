@@ -2,7 +2,6 @@ package org.example;
 
 import org.example.actions.MakeMoves;
 import org.example.actions.SetDefaultPositions;
-import org.example.entities.Entity;
 
 public class Main {
     public static void main(String[] args) {
@@ -17,6 +16,5 @@ public class Main {
 //        simulation.addTurnAction();
         simulation.startSimulation();
     }
-    // НУЖНО ПРОДОЛЖИТЬ ИСКАТЬ СПОСОБ ОЧИСТИТЬ КОНСОЛЬ
-    // ПОПРОБУЙ ЭТОТ МЕТОД https://www.youtube.com/watch?v=0j-0vtRGtT0
+    // Я думаю надо реализовать логику запоминания направления последнего пути, и как-то эту логику отыграть, чтобы не возвращаться в предыдущие клетки.
 }

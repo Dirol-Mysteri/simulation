@@ -12,9 +12,24 @@ public class Renderer {
     }
 
     public static void clearConsole() {
-        System.out.print("\033[H\033[2J");
-//        System.out.print("\u000C");
+//        System.out.println("Attempting to clear console...");
+//        System.out.print("\033[H\033[2J");
+//        System.out.flush();
+//        System.out.println("Console cleared.");
+
+//        for (int i = 0; i < 50; i++) {
+//            System.out.println();
+//        }
+
+        System.out.println("Attempting to clear console...");
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.print("\u001b\143");
         System.out.flush();
+        System.out.println("Console cleared.");
     }
 
     public void render() {

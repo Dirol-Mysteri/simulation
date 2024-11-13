@@ -9,14 +9,14 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
-public abstract class Creature extends Entity {
+public abstract class Creature_copy extends Entity {
     EntityType targetEntity;
     int speed;
     int hp;
     String sprite;
     List<List<Coordinates>> previousPathes = new LinkedList<>();
 
-    public Creature(int positionN, int positionM, EntityType entityType) {
+    public Creature_copy(int positionN, int positionM, EntityType entityType) {
         this.coordinates = new Coordinates(positionN, positionM);
         this.entityType = entityType;
         this.targetEntity = this.isType(EntityType.PREDATOR) ? EntityType.HERBIVORE : EntityType.RESOURCE;

@@ -42,18 +42,21 @@ public class Simulation {
         }
 
         int i = 0;
-        while (i != 100) {
+        while (i != 1000) {
             Renderer.clearConsole();
+            System.out.println();
+            System.out.println();
+            System.out.println();
             renderer.render();
             for (Action action : turnActions) {
                 action.execute();
             }
             i++;
-            try {
-                Thread.sleep(10000);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
+//            try {
+//                Thread.sleep(1000);
+//            } catch (InterruptedException e) {
+//                throw new RuntimeException(e);
+//            }
         }
     }
 

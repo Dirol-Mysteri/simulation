@@ -13,7 +13,8 @@ import java.util.Set;
 
 public class SetDefaultPositions implements Action {
 
-    private static final double PERCENT_OF_PREDATORS = 0.10;
+//    private static final double PERCENT_OF_PREDATORS = 0.10;
+    private static final double PERCENT_OF_PREDATORS = 0;
     private static final double PERCENT_OF_HERBIVORES = 0.15;
     private static final double PERCENT_OF_RESOURCES = 0.20;
     private static final double PERCENT_OF_STATIC_OBJECTS = 0.10;
@@ -70,7 +71,13 @@ public class SetDefaultPositions implements Action {
 
     @Override
     public void execute() {
-        fillEntities(maxHerbivores, (coordinates) -> new Herbivore(coordinates.getN(), coordinates.getM()));
+//        fillEntities(maxHerbivores, (coordinates) -> new Herbivore(coordinates.getN(), coordinates.getM()));
+//        fillEntities(maxPredators, (coordinates) -> new Predator(coordinates.getN(), coordinates.getM()));
+//        fillEntities(maxResources, (coordinates) -> new Grass(coordinates.getN(), coordinates.getM()));
+//        fillEntities(maxStaticObjects, (coordinates) -> new StaticObject(coordinates.getN(), coordinates.getM()));
+//        fillFreeSpace();
+
+        fillEntities(1, (coordinates) -> new Herbivore(coordinates.getN(), coordinates.getM()));
         fillEntities(maxPredators, (coordinates) -> new Predator(coordinates.getN(), coordinates.getM()));
         fillEntities(maxResources, (coordinates) -> new Grass(coordinates.getN(), coordinates.getM()));
         fillEntities(maxStaticObjects, (coordinates) -> new StaticObject(coordinates.getN(), coordinates.getM()));

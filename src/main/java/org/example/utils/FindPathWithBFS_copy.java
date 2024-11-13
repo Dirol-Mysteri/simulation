@@ -7,7 +7,7 @@ import org.example.enums.EntityType;
 
 import java.util.*;
 
-public class FindPathWithBFS {
+public class FindPathWithBFS_copy {
 
     private static final int[][] DIRECTIONS = {
             {0, 1}, {1, 0}, {0, -1}, {-1, 0},
@@ -23,7 +23,6 @@ public class FindPathWithBFS {
         queue.add(start);
 
         List<List<Coordinates>> previousPathes = caller.getPreviousPathes();
-//        visited.add(start);
 
         while (!queue.isEmpty()) {
             Coordinates current = queue.poll();
@@ -50,8 +49,6 @@ public class FindPathWithBFS {
                 // If the target is found
                 if (neighborEntity.isType(targetType)) {
                     cameFrom.put(neighbor, current);
-
-//                    return reconstructPath(cameFrom, start, neighbor);
                     List<Coordinates> findedPath = reconstructPath(cameFrom, start, neighbor);
                     if (previousPathes.contains(findedPath)) {
                         continue;
@@ -65,7 +62,6 @@ public class FindPathWithBFS {
                 // If a neighbor cell isn't the target
                 if (neighborEntity.getEntityType() == EntityType.FREE_SPACE) {
                     queue.add(neighbor);
-//                    visited.add(neighbor); // Какого хера я помечаю это поле как visited, если это просто соседняя клетка FreeSpace, которую я ещё не посетил до этого?
                     cameFrom.put(neighbor, current);
                 }
             }

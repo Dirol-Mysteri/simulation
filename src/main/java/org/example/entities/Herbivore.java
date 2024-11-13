@@ -1,40 +1,42 @@
 package org.example.entities;
 
 import org.example.Coordinates;
-import org.example.GameMap;
 import org.example.enums.EntityType;
-import org.example.utils.FindPathWithBFS;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Herbivore extends Creature {
     private static final int DAMAGE = 2;
-    private final String sprite;
+    private static final int SPEED = 1;
+    private static final int HP = 10;
 
     public Herbivore(int positionN, int positionM) {
         super(positionN, positionM, EntityType.HERBIVORE);
-        ArrayList<String> herbivoreSprites = new ArrayList<String>(List.of("\uD83D\uDC37", "\uD83D\uDC14", "\uD83E\uDD86"));
+        ArrayList<String> herbivoreSprites = new ArrayList<>(List.of("\uD83D\uDC37", "\uD83D\uDC14", "\uD83E\uDD86"));
         this.sprite = herbivoreSprites.get((int) Math.round(Math.random() * 2));
-        this.speed = 2;
-        this.hp = 10;
+        this.speed = SPEED;
+        this.hp = HP;
     }
 
     @Override
-    public void makeMove(GameMap gameMap) {
-        List<Coordinates> path = FindPathWithBFS.findPath(gameMap.getEntities(), this, EntityType.RESOURCE);
-        for (Coordinates coordinate : path) {
-            System.out.println(gameMap.getEntities().get(coordinate).getEntityType());
+    public void interactWithTarget(Entity target, HashMap<Coordinates, Entity> entities) {
+        if (target.isType(EntityType.RESOURCE)) {
+            ((Grass) target).takeDamage(entities, this);
         }
-//        System.out.println(path);
     }
 
-    public String getSprite() {
-        return sprite;
-    }
-
-    public void takeDamage() {
-        this.hp = this.hp - DAMAGE;
-        System.out.println("Herbivore damage message should be here");
+    public void takeDamage(HashMap<Coordinates, Entity> entities, Entity predator) {
+        if (this.hp > DAMAGE) {
+            this.hp = this.hp - DAMAGE;
+            System.out.println("Herbivore damage message should be here");
+        } else {
+            // If Herbivore dies, it's place takes Free Cell
+            Coordinates tempPredatorCoordinates = new Coordinates(predator.getCoordinates().getN(), predator.getCoordinates().getM());
+            predator.setCoordinates(this.coordinates);
+            entities.put(this.coordinates, predator);
+            entities.put(tempPredatorCoordinates, new FreeSpace(tempPredatorCoordinates.getN(), tempPredatorCoordinates.getM()));
+        }
     }
 }
