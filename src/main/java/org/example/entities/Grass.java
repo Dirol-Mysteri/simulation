@@ -18,10 +18,10 @@ public class Grass extends Entity {
     }
 
     public void takeDamage(HashMap<Coordinates, Entity> entities, Herbivore herbivore) {
-        Coordinates tempHerbivoresCoordinates = new Coordinates(herbivore.getCoordinates().getN(), herbivore.getCoordinates().getM());
+        Coordinates tempHerbivoresCoordinates = new Coordinates(herbivore);
         herbivore.setCoordinates(this.coordinates);
         entities.put(this.coordinates, herbivore);
-        entities.put(tempHerbivoresCoordinates, new FreeSpace(tempHerbivoresCoordinates.getN(), tempHerbivoresCoordinates.getM()));
+        entities.remove(tempHerbivoresCoordinates);
 
     }
 }

@@ -1,6 +1,7 @@
 package org.example.utils;
 
 import org.example.Coordinates;
+import org.example.GameMap;
 import org.example.entities.Creature;
 import org.example.entities.Entity;
 import org.example.enums.EntityType;
@@ -14,40 +15,45 @@ public class FindPathWithBFS {
             {1, 1}, {1, -1}, {-1, 1}, {-1, -1}
     };
 
-    public static List<Coordinates> findPath(HashMap<Coordinates, Entity> map, Creature caller, EntityType targetType) {
+    public static List<Coordinates> findPath(GameMap map, Creature caller, EntityType targetType) {
+
+        HashMap<Coordinates, Entity> entities = map.getEntities();
+
         Queue<Coordinates> queue = new LinkedList<>();
         Map<Coordinates, Coordinates> cameFrom = new HashMap<>();
         Set<Coordinates> visited = new HashSet<>();
 
         Coordinates start = caller.getCoordinates();
         queue.add(start);
+        visited.add(start);
 
         while (!queue.isEmpty()) {
             Coordinates current = queue.poll();
-            visited.add(current);
             // Checking all directions
             for (int[] direction : DIRECTIONS) {
-                Coordinates neighbor = new Coordinates(current.getN() + direction[0], current.getM() + direction[1]);
+                Coordinates neighborCell = new Coordinates(current.getN() + direction[0], current.getM() + direction[1]);
 
-                if (visited.contains(neighbor) || !map.containsKey(neighbor)) {
+                if (visited.contains(neighborCell) || isOutOffMapBounds(neighborCell, map)) {
                     continue;
                 }
 
-                Entity neighborEntity = map.get(neighbor);
+                Entity neighborEntity = entities.get(neighborCell);
+
+                // If a neighbor cell isn't the target
+                if (neighborEntity == null) {
+                    queue.add(neighborCell);
+                    visited.add(neighborCell);
+                    cameFrom.put(neighborCell, current);
+                    continue;
+                }
 
                 // If the target is found
                 if (neighborEntity.isType(targetType)) {
-                    cameFrom.put(neighbor, current);
-                    return reconstructPath(cameFrom, start, neighbor);
-                }
-
-                // If a neighbor cell isn't the target
-                if (neighborEntity.getEntityType() == EntityType.FREE_SPACE) {
-                    queue.add(neighbor);
-                    visited.add(neighbor);
-                    cameFrom.put(neighbor, current);
+                    cameFrom.put(neighborCell, current);
+                    return reconstructPath(cameFrom, start, neighborCell);
                 }
             }
+
         }
         // If no target is found
         return new ArrayList<>();
@@ -64,5 +70,10 @@ public class FindPathWithBFS {
         path.add(start);
         Collections.reverse(path);
         return path;
+    }
+
+    private static boolean isOutOffMapBounds(Coordinates coordinates, GameMap map) {
+        return coordinates.getN() < 0 || coordinates.getN() >= map.getN() ||
+                coordinates.getM() < 0 || coordinates.getM() >= map.getM();
     }
 }

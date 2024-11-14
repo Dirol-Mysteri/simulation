@@ -40,7 +40,7 @@ public abstract class Creature extends Entity {
         Coordinates currentPosition = this.getCoordinates();
         Coordinates newPosition = path.get(speed);
         this.setPosition(newPosition);
-        gameMap.getEntities().put(currentPosition, new FreeSpace(currentPosition.getN(), currentPosition.getM()));
+        gameMap.getEntities().remove(currentPosition);
         gameMap.getEntities().put(newPosition, this);
     }
 
@@ -51,7 +51,7 @@ public abstract class Creature extends Entity {
 
 
     public void makeMove(GameMap gameMap) {
-        List<Coordinates> path = FindPathWithBFS.findPath(gameMap.getEntities(), this, this.targetEntity);
+        List<Coordinates> path = FindPathWithBFS.findPath(gameMap, this, this.targetEntity);
         this.moveAlongPath(path, gameMap);
     }
 

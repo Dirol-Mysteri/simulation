@@ -3,13 +3,14 @@ package org.example;
 import org.example.entities.Entity;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public class GameMap {
 
     private final int n;
     private final int m;
 
-    private final HashMap<Coordinates, Entity> entities = new HashMap<>();
+    private final HashMap<Coordinates, Entity> entities = new LinkedHashMap<>();
 
 
     public GameMap(int n, int m) {

@@ -26,7 +26,7 @@ public class Renderer {
             for (int j = 0; j < this.map.getM(); j++) {
                 Coordinates coordinates = new Coordinates(i, j);
                 Entity entity = this.map.getEntities().get(coordinates);
-                String sprite = (entity != null) ? entity.getSprite() : ".";
+                String sprite = (entity != null) ? entity.getSprite() : "___";
                 System.out.print(" " + sprite + " ");
             }
             System.out.println();

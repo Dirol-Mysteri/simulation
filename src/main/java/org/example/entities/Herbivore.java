@@ -30,13 +30,12 @@ public class Herbivore extends Creature {
         int damage = predator.getDamage();
         if (this.hp > damage) {
             this.hp = this.hp - damage;
-            System.out.println("Herbivore was attacked!");
         } else {
             // If Herbivore dies, it's place takes Free Cell
-            Coordinates tempPredatorCoordinates = new Coordinates(predator.getCoordinates().getN(), predator.getCoordinates().getM());
+            Coordinates tempPredatorCoordinates = new Coordinates(predator);
             predator.setCoordinates(this.coordinates);
             entities.put(this.coordinates, predator);
-            entities.put(tempPredatorCoordinates, new FreeSpace(tempPredatorCoordinates.getN(), tempPredatorCoordinates.getM()));
+            entities.remove(tempPredatorCoordinates);
         }
     }
 }
