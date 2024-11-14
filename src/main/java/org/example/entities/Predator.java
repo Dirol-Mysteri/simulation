@@ -1,6 +1,7 @@
 package org.example.entities;
 
 import org.example.Coordinates;
+import org.example.GameMap;
 import org.example.enums.EntityType;
 
 import java.util.ArrayList;
@@ -20,9 +21,9 @@ public class Predator extends Creature {
     }
 
     @Override
-    public void interactWithTarget(Entity target, HashMap<Coordinates, Entity> entities) {
+    public void interactWithTarget(Entity target, GameMap gameMap) {
         if (target.isType(EntityType.HERBIVORE)) {
-            ((Herbivore) target).takeDamage(entities, this);
+            ((Herbivore) target).takeDamage(gameMap, this);
             // НАДО ПОДУМАТЬ, КАК ТУТ ПРАВИЛЬНО СДЕЛАТЬ CASTING
         }
     }

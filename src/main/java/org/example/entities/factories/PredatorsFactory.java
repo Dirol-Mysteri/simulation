@@ -1,7 +1,7 @@
 package org.example.entities.factories;
 
 import org.example.Coordinates;
-import org.example.EntityFactory;
+import org.example.entities.EntityFactory;
 import org.example.entities.Entity;
 import org.example.entities.Predator;
 

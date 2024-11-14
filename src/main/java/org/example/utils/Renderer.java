@@ -3,6 +3,7 @@ package org.example.utils;
 import org.example.Coordinates;
 import org.example.GameMap;
 import org.example.entities.Entity;
+import org.w3c.dom.ls.LSOutput;
 
 public class Renderer {
     private final GameMap map;
@@ -22,6 +23,10 @@ public class Renderer {
     }
 
     public void render() {
+        clearConsole();
+        System.out.println();
+        System.out.println();
+        System.out.println();
         for (int i = 0; i < this.map.getN(); i++) {
             for (int j = 0; j < this.map.getM(); j++) {
                 Coordinates coordinates = new Coordinates(i, j);

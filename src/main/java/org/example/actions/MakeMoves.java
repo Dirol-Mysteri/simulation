@@ -1,6 +1,5 @@
 package org.example.actions;
 
-import org.example.Action;
 import org.example.Coordinates;
 import org.example.GameMap;
 import org.example.entities.Creature;

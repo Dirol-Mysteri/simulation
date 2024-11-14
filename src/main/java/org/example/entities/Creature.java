@@ -6,7 +6,6 @@ import org.example.enums.EntityType;
 import org.example.utils.FindPathWithBFS;
 
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 
 public abstract class Creature extends Entity {
@@ -14,7 +13,6 @@ public abstract class Creature extends Entity {
     int speed;
     int hp;
     String sprite;
-    List<List<Coordinates>> previousPathes = new LinkedList<>();
 
     public Creature(int positionN, int positionM, EntityType entityType) {
         this.coordinates = new Coordinates(positionN, positionM);
@@ -32,7 +30,7 @@ public abstract class Creature extends Entity {
         if (stepsToTarget <= speed) {
             // Logic for attacking the target
             Entity target = gameMap.getEntities().get(path.getLast());
-            interactWithTarget(target, entities);
+            interactWithTarget(target, gameMap);
             return;
         }
 
@@ -59,6 +57,6 @@ public abstract class Creature extends Entity {
         return sprite;
     }
 
-    public abstract void interactWithTarget(Entity target, HashMap<Coordinates, Entity> entities);
+    public abstract void interactWithTarget(Entity target, GameMap gameMap);
 
 }

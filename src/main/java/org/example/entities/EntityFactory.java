@@ -1,6 +1,6 @@
-package org.example;
+package org.example.entities;
 
-import org.example.entities.Entity;
+import org.example.Coordinates;
 
 @FunctionalInterface
 public interface EntityFactory {

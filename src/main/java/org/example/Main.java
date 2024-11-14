@@ -1,17 +1,15 @@
 package org.example;
 
-import org.example.actions.MakeMoves;
-import org.example.actions.SetDefaultPositions;
+import org.example.enums.InitActionType;
+import org.example.enums.TurnActionType;
 
 public class Main {
     public static void main(String[] args) {
-        GameMap gameMap = new GameMap(20, 20);
-        Simulation simulation = new Simulation(gameMap);
+        Simulation simulation = new Simulation(20, 20);
 
         // Adding actions to the simulation
-
-        simulation.addInitAction(new SetDefaultPositions(gameMap));
-        simulation.addTurnAction(new MakeMoves(gameMap));
+        simulation.addInitAction(InitActionType.SET_DEFAULT_POSITIONS);
+        simulation.addTurnAction(TurnActionType.MAKE_MOVES);
         simulation.startSimulation();
     }
 }

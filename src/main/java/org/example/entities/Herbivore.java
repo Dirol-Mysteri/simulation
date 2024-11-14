@@ -1,6 +1,7 @@
 package org.example.entities;
 
 import org.example.Coordinates;
+import org.example.GameMap;
 import org.example.enums.EntityType;
 
 import java.util.ArrayList;
@@ -20,13 +21,15 @@ public class Herbivore extends Creature {
     }
 
     @Override
-    public void interactWithTarget(Entity target, HashMap<Coordinates, Entity> entities) {
+    public void interactWithTarget(Entity target, GameMap gameMap) {
+        var entities = gameMap.getEntities();
         if (target.isType(EntityType.RESOURCE)) {
             ((Grass) target).takeDamage(entities, this);
         }
     }
 
-    public void takeDamage(HashMap<Coordinates, Entity> entities, Predator predator) {
+    public void takeDamage(GameMap gameMap, Predator predator) {
+        HashMap<Coordinates, Entity> entities = gameMap.getEntities();
         int damage = predator.getDamage();
         if (this.hp > damage) {
             this.hp = this.hp - damage;
@@ -36,6 +39,8 @@ public class Herbivore extends Creature {
             predator.setCoordinates(this.coordinates);
             entities.put(this.coordinates, predator);
             entities.remove(tempPredatorCoordinates);
+            int newHerbivoresQuantity = gameMap.getHerbivoresQuantity() - 1;
+            gameMap.setHerbivoresQuantity(newHerbivoresQuantity);
         }
     }
 }

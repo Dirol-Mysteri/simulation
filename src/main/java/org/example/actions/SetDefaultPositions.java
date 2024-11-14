@@ -1,8 +1,7 @@
 package org.example.actions;
 
-import org.example.Action;
 import org.example.Coordinates;
-import org.example.EntityFactory;
+import org.example.entities.EntityFactory;
 import org.example.GameMap;
 import org.example.entities.*;
 
@@ -27,16 +26,21 @@ public class SetDefaultPositions implements Action {
 
     private final HashMap<Coordinates, Entity> entities;
 
-    public SetDefaultPositions(GameMap map) {
-        int mapSize = map.getM() * map.getM();
+    public SetDefaultPositions(GameMap gameMap) {
+        int mapSize = gameMap.getM() * gameMap.getM();
 
-        this.map = map;
+        this.map = gameMap;
         this.entities = map.getEntities();
 
         this.maxPredators = (int) (mapSize * PERCENT_OF_PREDATORS);
         this.maxHerbivores = (int) (mapSize * PERCENT_OF_HERBIVORES);
         this.maxResources = (int) (mapSize * PERCENT_OF_RESOURCES);
         this.maxStaticObjects = (int) (mapSize * PERCENT_OF_STATIC_OBJECTS);
+
+        gameMap.setHerbivoresQuantity(maxHerbivores);
+        gameMap.setPredatorsQuantity(maxPredators);
+        gameMap.setResourcesQuantity(maxResources);
+
     }
 
     private void fillEntities(int maxCount, EntityFactory factory) {
