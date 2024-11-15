@@ -12,6 +12,7 @@ public class CLI {
 
     private final GameMap gameMap;
     private final Scanner scanner;
+    private boolean isActive = true;
 
     public CLI(GameMap gameMap) {
         this.gameMap = gameMap;
@@ -20,18 +21,20 @@ public class CLI {
 
     public void mainMenu() {
         // Сюда надо прописать бесконечный цикл, с выходом после старта симуляции.
-        System.out.println();
         System.out.println("\nДобро пожаловать в пошаговую симуляцию 2D мира!\n");
-        System.out.println("1 - Запустить симуляцию.");
-        System.out.println("2 - Настроить параметры симуляции.\n");
-        System.out.print("Введите число: ");
-        int choice = getUserChoice(MAIN_MENU_MAX_CHOICE);
-        if (choice == 1) {
-            startSimulation();
-            // Здесь надо будет нарушить true условие
-            // И надо будет подумать над выходом из потока
-        } else {
-            settings();
+        while (isActive) {
+            System.out.println();
+            System.out.println("1 - Запустить симуляцию.");
+            System.out.println("2 - Настроить параметры симуляции.\n");
+            System.out.print("Введите число: ");
+            int choice = getUserChoice(MAIN_MENU_MAX_CHOICE);
+            if (choice == 1) {
+                startSimulation();
+                isActive = false;
+                closeScanner();
+            } else {
+                settings();
+            }
         }
     }
 
@@ -51,6 +54,7 @@ public class CLI {
         System.out.println();
         System.out.println("Введите \"1\", чтобы настроить размер карты.");
         System.out.println("Введите \"2\", чтобы настроить количество существ.");
+        System.out.print("\nВведите число: ");
         int choice = getUserChoice(SETTINGS_MAX_CHOICE);
         if (choice == 1) {
             mapSettings();
@@ -61,9 +65,11 @@ public class CLI {
 
     private void mapSettings() {
         System.out.println("\nВведите размер карты по высоте:");
+        System.out.print("Введите число: ");
         int userMapHeightChoice = getPositiveInt();
 
         System.out.println("\nВведите размер карты по ширине:");
+        System.out.print("Введите число: ");
         int userMapWidthChoice = getPositiveInt();
 
         gameMap.setN(userMapHeightChoice);
@@ -72,15 +78,16 @@ public class CLI {
         System.out.println();
         System.out.println("\nРазмеры карты заданы!");
         System.out.println();
-        System.out.println("Нажмите \"1\" чтобы настроить размеры карты снова.");
-        System.out.println("Нажмите \"2\" чтобы перейти к настройкам существ.");
-        System.out.println("Нажмите \"3\" чтобы вернуться в главное меню.");
+        System.out.println("Нажмите \"1\" чтобы вернуться в главное меню.");
+        System.out.println("Нажмите \"2\" чтобы настроить размеры карты снова.");
+        System.out.println("Нажмите \"3\" чтобы перейти к настройкам существ.");
+        System.out.print("\nВведите число: ");
 
         int choice = getUserChoice(MAP_SETTINGS_MAX_CHOICE);
         switch (choice) {
-            case 1 -> mapSettings();
-            case 2 -> entitiesSettings();
-            case 3 -> mainMenu();
+            case 2 -> mapSettings();
+            case 3 -> entitiesSettings();
+//            case 3 -> mainMenu();
         }
     }
 
@@ -88,7 +95,7 @@ public class CLI {
 
     }
 
-    public void close() {
+    public void closeScanner() {
         scanner.close();
     }
 
