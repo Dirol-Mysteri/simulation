@@ -97,6 +97,7 @@ public class Simulation {
             isEnded = true;
             System.out.println(movesCounter);
             System.out.println("Симуляция завершена!");
+            System.exit(0);
         }
 
         if (!isRunning && !isEnded) {
