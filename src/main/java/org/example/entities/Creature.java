@@ -9,15 +9,15 @@ import java.util.HashMap;
 import java.util.List;
 
 public abstract class Creature extends Entity {
-    EntityType targetEntity;
     int speed;
     int hp;
     String sprite;
+    private EntityType targetEntity;
 
     public Creature(int positionN, int positionM, EntityType entityType) {
         this.coordinates = new Coordinates(positionN, positionM);
         this.entityType = entityType;
-        this.targetEntity = this.isType(EntityType.PREDATOR) ? EntityType.HERBIVORE : EntityType.RESOURCE;
+        this.targetEntity = determineTargetEntity(entityType);
     }
 
     void moveAlongPath(List<Coordinates> path, GameMap gameMap) {
@@ -55,6 +55,10 @@ public abstract class Creature extends Entity {
 
     public String getSprite() {
         return sprite;
+    }
+
+    private EntityType determineTargetEntity(EntityType entityType) {
+        return entityType == EntityType.PREDATOR ? EntityType.HERBIVORE : EntityType.RESOURCE;
     }
 
     public abstract void interactWithTarget(Entity target, GameMap gameMap);

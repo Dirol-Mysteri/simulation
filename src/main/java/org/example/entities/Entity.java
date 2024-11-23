@@ -7,14 +7,20 @@ public abstract class Entity {
     EntityType entityType;
     Coordinates coordinates;
 
+    /**
+     * Returns the visual representation (sprite) of the entity.
+     *
+     * @return a string representation of the sprite
+     */
+
     public abstract String getSprite();
 
     public EntityType getEntityType() {
-        return entityType;
+        return this.entityType;
     }
 
     public boolean isType(EntityType targetType) {
-        return this.getEntityType().equals(targetType);
+        return this.entityType == targetType;
     }
 
     public Coordinates getCoordinates() {

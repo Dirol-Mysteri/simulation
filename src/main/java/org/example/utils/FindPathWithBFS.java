@@ -8,6 +8,10 @@ import org.example.enums.EntityType;
 
 import java.util.*;
 
+/**
+ * Utility class for finding paths using the BFS algorithm.
+ */
+
 public class FindPathWithBFS {
 
     private static final int[][] DIRECTIONS = {
@@ -17,8 +21,7 @@ public class FindPathWithBFS {
 
     public static List<Coordinates> findPath(GameMap map, Creature caller, EntityType targetType) {
 
-        HashMap<Coordinates, Entity> entities = map.getEntities();
-
+        Map<Coordinates, Entity> entities = map.getEntities();
         Queue<Coordinates> queue = new LinkedList<>();
         Map<Coordinates, Coordinates> cameFrom = new HashMap<>();
         Set<Coordinates> visited = new HashSet<>();
@@ -28,28 +31,28 @@ public class FindPathWithBFS {
         visited.add(start);
 
         while (!queue.isEmpty()) {
-            Coordinates current = queue.poll();
+            Coordinates currentCell = queue.poll();
             // Checking all directions
             for (int[] direction : DIRECTIONS) {
-                Coordinates neighborCell = new Coordinates(current.getN() + direction[0], current.getM() + direction[1]);
+                Coordinates neighborCell = new Coordinates(currentCell.getN() + direction[0], currentCell.getM() + direction[1]);
 
                 if (visited.contains(neighborCell) || isOutOffMapBounds(neighborCell, map)) {
                     continue;
                 }
 
-                Entity neighborEntity = entities.get(neighborCell);
+                Entity entityAtNeighbor = entities.get(neighborCell);
 
                 // If a neighbor cell isn't the target
-                if (neighborEntity == null) {
+                if (entityAtNeighbor == null) {
                     queue.add(neighborCell);
                     visited.add(neighborCell);
-                    cameFrom.put(neighborCell, current);
+                    cameFrom.put(neighborCell, currentCell);
                     continue;
                 }
 
                 // If the target is found
-                if (neighborEntity.isType(targetType)) {
-                    cameFrom.put(neighborCell, current);
+                if (entityAtNeighbor.isType(targetType)) {
+                    cameFrom.put(neighborCell, currentCell);
                     return reconstructPath(cameFrom, start, neighborCell);
                 }
             }

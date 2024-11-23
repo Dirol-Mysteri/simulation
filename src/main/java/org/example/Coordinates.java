@@ -1,7 +1,5 @@
 package org.example;
 
-import org.example.entities.Entity;
-
 import java.util.Objects;
 
 public class Coordinates {
@@ -16,11 +14,6 @@ public class Coordinates {
     public Coordinates(Coordinates coordinates) {
         this.n = coordinates.getN();
         this.m = coordinates.getM();
-    }
-
-    public Coordinates(Entity entity) {
-        this.n = entity.getCoordinates().getN();
-        this.m = entity.getCoordinates().getM();
     }
 
     public int getN() {
