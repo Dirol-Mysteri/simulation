@@ -66,16 +66,14 @@ public class Simulation {
     }
 
     public void startSimulation() {
-        synchronized (scanner) {
-            CLI.startMenu();
-            addAction(new SetPositions(gameMap));
-            addAction(new MakeMoves(gameMap));
-            for (Action action : initActions) {
-                action.execute();
-            }
-            isRunning = true;
-            isActiveBackgroundInput = true;
+        CLI.startMenu();
+        addAction(new SetPositions(gameMap));
+        addAction(new MakeMoves(gameMap));
+        for (Action action : initActions) {
+            action.execute();
         }
+        isRunning = true;
+        isActiveBackgroundInput = true;
         renderer.render();
         while (isRunning) {
             nextTurn();
